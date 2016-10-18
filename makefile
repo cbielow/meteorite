@@ -1,4 +1,5 @@
 WXCONFIG = wx-config
+CPP_CLI = $(CXX)  ## for CLI executable (no wx-stuff)
 CPP = `$(WXCONFIG) --cxx`
 CXXFLAGS= `$(WXCONFIG) --cxxflags` -O2
 LDFLAGS = `$(WXCONFIG) --libs`
@@ -25,7 +26,6 @@ RESOURCES= resources/resource.rc
 RESOURCE_OBJ=$(RESOURCES:.rc=.o)
 EXECUTABLE=meteorite
 EXECUTABLE_CLI=meteorite-cli
-EXECUTABLE_WIN=Meteorite.exe
 
 DESTDIR		=
 PREFIX		= $(DESTDIR)/usr
@@ -35,24 +35,18 @@ LOCALEDIR   = $(DATADIR)/locale
 
 all: $(SOURCES) $(EXECUTABLE) $(EXECUTABLE_CLI)
 
-cli: $(SOURCES_CLI) $(EXECUTABLE_CLI)
+cli: $(EXECUTABLE_CLI)
 
 $(EXECUTABLE): $(OBJECTS_GUI)
 	$(CPP) $(OBJECTS_GUI) $(LDFLAGS) -o $@
 
-$(EXECUTABLE_CLI): $(OBJECTS_CLI)
-	$(CPP) $(OBJECTS_CLI) $(LDFLAGS) -o $@
-
-win: $(SOURCES) $(RESOURCES) $(EXECUTABLE_WIN)
-
-$(EXECUTABLE_WIN): $(OBJECTS) $(RESOURCE_OBJ)
-	$(CPP) $(OBJECTS) $(RESOURCE_OBJ) $(LDFLAGS) -static-libstdc++ -static-libgcc -o $@
+$(EXECUTABLE_CLI): $(SOURCES_CLI)
+	$(CPP_CLI) $(SOURCES_CLI) -o $@
 
 %.o : %.rc
 	$(RC) $(RCFLAGS) $< -o $@
 
 .cpp.o:
-	$(CPP) $(CXXFLAGS) -c $< -o $@
 
 install:
 	install -D -m 755 $(EXECUTABLE) $(BINDIR)/$(EXECUTABLE)
@@ -76,7 +70,6 @@ clean:
 	rm -f locale/*/$(EXECUTABLE).mo
 	rm -f $(EXECUTABLE)
 	rm -f $(EXECUTABLE_CLI)
-	rm -f $(EXECUTABLE_WIN)
 	rm -rf $(EXECUTABLE).app
 
 distclean: clean

@@ -12,24 +12,24 @@ below for full details.
 
 #Build
 
-Meteorite requires [wxWidgets][wx], probably at least 2.8 or 3.0.
+The Meteorite command line interface (CLI) version only requires a C++ compiler to 
+build (g++ 4.6 works well - also on Windows).
+The Meteorite GUI requires [wxWidgets][wx], probably at least 2.8 or 3.0.
 Tested with version 3.0 and 3.1, installed via `brew install wxmac` 
 and Windows installer. There may be other prereqs; I honestly don't 
-know yet. Note that wxWidgets is currently required to build even
-just the CLI version.
+know yet.
 
   [wx]: https://www.wxwidgets.org/
 
+* `make cli` builds only `meteorite-cli[.exe]`.
 * `make` builds two executables, `meteorite` and
   `meteorite-cli`, which will run from the source tree.
-* `make cli` builds only `meteorite-cli`.
 * `[sudo] make install` may work on some platforms, but I don't
   know how far I'd trust it. (It does handle the usual `$DESTDIR`, 
   `$PREFIX`, etc. customizations.) I definitely wouldn't use it on Mac.
 * `make mac` will build a `.app` bundle, which can then be copied
   into your applications directory. (However, at present, you'll
   probably want to run it from a terminal anyway.)
-* `make win` will build... hopefully something useful; not sure what.
 * `contrib/meteorite.spec` can presumably be used for building an
 RPM package.
 
@@ -50,7 +50,12 @@ So, for example, if you fix `~/Movies/spam.mkv`, you will get
 `~/Movies/Meteorite.spam.mkv`.
 
 Currently, there's a whole lot of debug information, dumped to both
-stderr and stdout. However, at the end of each file, you should get a
+stderr and stdout.
+Use piping of std-out to get rid of most verbose messages, i.e.
+    
+    meteorite-cli FILENAME [FILENAME]* >log.txt
+
+At the end of each run, you should get a
 banner like this:
 
     ************************************************************
