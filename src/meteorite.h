@@ -31,9 +31,6 @@
 #include <string.h>
 #include <stdint.h>
 
-#include <wx/thread.h>
-#include <wx/gauge.h>
-#include <wx/msgdlg.h>
 //#include <omp.h>
 
 #include <algorithm>
