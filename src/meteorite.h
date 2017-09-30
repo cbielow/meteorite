@@ -226,7 +226,7 @@ inline bool IsKeyFrame( char *data, unsigned size, char *four_cc );
 		uint64_t ClusterDuration( vector< Block >& vb, unsigned DefaultFrameDuration, unsigned TrackNo );
 		uint64_t ClusterMaximumBlockTimePlusDuration( vector< Block >& vb, unsigned DefaultFrameDuration, unsigned TrackNo );
 		short ClusterMinimumBlockTime( vector< Block >& vb, unsigned TrackNo );
-		char* Clusterart();
+		const char* Clusterart();
 		void Generate_CueTimeCodes( vector< Block >& vb, subElement* Cues_ptr, uint64_t ClusterPosition, uint64_t ClusterTimeCode, unsigned DefaultFrameDuration, unsigned TrackNo=1 );
 		subElement* MakeCuePoint( uint64_t ClusterPosition, unsigned TrackNo, uint64_t CueTime );
 		vector<Block> ClusterBlocksAnalysis( subElement* el_ptr, subElement* root );

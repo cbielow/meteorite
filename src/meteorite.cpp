@@ -1153,7 +1153,7 @@ subElement* Meteorite::ClusterRecover( char *bfr, unsigned rsize, unsigned MaxTr
 			cout << "Buffer not starting with _Cluster_ token" << endl;
 			return NULL;
 		}
-	return false;
+	return NULL;
 	}
 inline bool Meteorite::IsKeyFrame( char *data, unsigned size, char *four_cc ){ //Finds KeyFrames for indexing
 	uint32_t flag;
@@ -1578,7 +1578,7 @@ short Meteorite::ClusterMinimumBlockTime( vector< Block >& vb, unsigned TrackNo 
 			minimumtime = min(it->TimeCode, minimumtime );
 	return minimumtime;
 	}
-char* Meteorite::Clusterart(){
+const char* Meteorite::Clusterart(){
 	return "*********************************************************************\n"\
 			"*                            `,. ,;:`                               *\n"\
 			"*                         `;''''''++++;'':                          *\n"\
